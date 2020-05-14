@@ -48,7 +48,7 @@ public:
         *_bvar << (butil::cpuwide_time_us() - _start_time);
     }
 
-    void reset() { _start_time = butil::cpuwide_time_us(); }
+    //void reset() { _start_time = butil::cpuwide_time_us(); }
 
 private:
     DISALLOW_COPY_AND_ASSIGN(ScopedTimer);
