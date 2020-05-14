@@ -54,7 +54,7 @@ include(GNUInstallDirs)
 
 configure_file(${PROJECT_SOURCE_DIR}/config.h.in ${PROJECT_SOURCE_DIR}/src/butil/config.h @ONLY)
 
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 find_package(GFLAGS REQUIRED)
 
@@ -74,10 +74,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-execute_process(
-    COMMAND bash -c "git rev-parse --short HEAD | tr -d '\n'"
-    OUTPUT_VARIABLE BRPC_REVISION
-)
+set(BRPC_REVISION "f43bdcec")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     include(CheckFunctionExists)
@@ -119,7 +116,13 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-include(FindProtobuf)
+#include(FindProtobuf)
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}
+    "${CONAN_PROTOBUF_ROOT}/lib/cmake/protobuf"
+    "${CONAN_PROTOC_INSTALLER_ROOT}/lib/cmake/protoc")
+option(protobuf_MODULE_COMPATIBLE "override" ON)
+find_package(protoc REQUIRED)
+find_package(protobuf REQUIRED)
 include(FindThreads)
 
 find_path(LEVELDB_INCLUDE_PATH NAMES leveldb/db.h)
@@ -137,10 +140,13 @@ if(WITH_GLOG)
     include_directories(${GLOG_INCLUDE_PATH})
 endif()
 
-find_library(PROTOC_LIB NAMES protoc)
+find_library(PROTOC_LIB NAMES protoc protocd)
 if(NOT PROTOC_LIB)
     message(FATAL_ERROR "Fail to find protoc lib")
 endif()
+
+set(PROTOBUF_INCLUDE_DIRS "${CONAN_PROTOBUF_ROOT}/include")
+set(PROTOBUF_INCLUDE_DIR "${CONAN_PROTOBUF_ROOT}/include")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(OPENSSL_ROOT_DIR
@@ -159,7 +165,7 @@ include_directories(
 
 set(DYNAMIC_LIB
     ${GFLAGS_LIBRARY}
-    ${PROTOBUF_LIBRARIES}
+    ${Protobuf_LIBRARIES}
     ${LEVELDB_LIB}
     ${PROTOC_LIB}
     ${CMAKE_THREAD_LIBS_INIT}
