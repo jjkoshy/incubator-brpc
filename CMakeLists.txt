@@ -116,13 +116,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-#include(FindProtobuf)
 list(APPEND CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}
     "${CONAN_PROTOBUF_ROOT}/lib/cmake/protobuf"
     "${CONAN_PROTOC_INSTALLER_ROOT}/lib/cmake/protoc")
 option(protobuf_MODULE_COMPATIBLE "override" ON)
-find_package(protoc REQUIRED)
-find_package(protobuf REQUIRED)
+#find_package(protoc REQUIRED)
+find_package(Protobuf REQUIRED)
 include(FindThreads)
 
 find_path(LEVELDB_INCLUDE_PATH NAMES leveldb/db.h)
