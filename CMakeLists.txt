@@ -120,7 +120,6 @@ list(APPEND CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}
     "${CONAN_PROTOBUF_ROOT}/lib/cmake/protobuf"
     "${CONAN_PROTOC_INSTALLER_ROOT}/lib/cmake/protoc")
 option(protobuf_MODULE_COMPATIBLE "override" ON)
-#find_package(protoc REQUIRED)
 find_package(Protobuf REQUIRED)
 include(FindThreads)
 
