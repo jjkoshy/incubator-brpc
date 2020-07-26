@@ -116,10 +116,10 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-list(APPEND CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH}
-    "${CONAN_PROTOBUF_ROOT}/lib/cmake/protobuf"
-    "${CONAN_PROTOC_INSTALLER_ROOT}/lib/cmake/protoc")
 option(protobuf_MODULE_COMPATIBLE "override" ON)
+# TODO: get rid of the version that is not required
+find_program(Protobuf_PROTOC_EXECUTABLE NAMES protoc DOC "The Google Protocol Buffers Compiler")
+find_program(PROTOBUF_PROTOC_EXECUTABLE NAMES protoc DOC "The Google Protocol Buffers Compiler")
 find_package(Protobuf REQUIRED)
 include(FindThreads)
 
