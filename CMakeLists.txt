@@ -116,8 +116,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-# TODO: see if this diff was needed
-find_package(Protobuf REQUIRED)
+include(FindProtobuf)
 include(FindThreads)
 
 find_path(LEVELDB_INCLUDE_PATH NAMES leveldb/db.h)
