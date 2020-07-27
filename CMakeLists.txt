@@ -116,10 +116,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     endif()
 endif()
 
-option(protobuf_MODULE_COMPATIBLE "override" ON)
-# TODO: get rid of the version that is not required
-find_program(Protobuf_PROTOC_EXECUTABLE NAMES protoc DOC "The Google Protocol Buffers Compiler")
-find_program(PROTOBUF_PROTOC_EXECUTABLE NAMES protoc DOC "The Google Protocol Buffers Compiler")
+# TODO: see if this diff was needed
 find_package(Protobuf REQUIRED)
 include(FindThreads)
 
@@ -138,13 +135,11 @@ if(WITH_GLOG)
     include_directories(${GLOG_INCLUDE_PATH})
 endif()
 
+# TODO: see if this is required or not
 find_library(PROTOC_LIB NAMES protoc protocd)
 if(NOT PROTOC_LIB)
     message(FATAL_ERROR "Fail to find protoc lib")
 endif()
-
-set(PROTOBUF_INCLUDE_DIRS "${CONAN_PROTOBUF_ROOT}/include")
-set(PROTOBUF_INCLUDE_DIR "${CONAN_PROTOBUF_ROOT}/include")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     set(OPENSSL_ROOT_DIR
@@ -161,6 +156,7 @@ include_directories(
         ${OPENSSL_INCLUDE_DIR}
         )
 
+# TODO: see if this is still needed
 set(DYNAMIC_LIB
     ${GFLAGS_LIBRARY}
     ${Protobuf_LIBRARIES}
