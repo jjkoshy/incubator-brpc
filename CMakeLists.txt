@@ -74,6 +74,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
+# TODO: this should be "generated"
 set(BRPC_REVISION "f43bdcec")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -155,7 +156,11 @@ include_directories(
         ${OPENSSL_INCLUDE_DIR}
         )
 
-# TODO: see if this is still needed
+# This diff hunk is necessary because the protobuf package disables the
+# backwards-compatible aliasing of Protobuf_LIBRARIES with
+# PROTOBUF_LIBRARIES. Normally, that should be enabled with
+# protobuf_MODULE_COMPATIBLE; it appears that the endif for the if (0) in
+# the protobuf recipe should be moved further up
 set(DYNAMIC_LIB
     ${GFLAGS_LIBRARY}
     ${Protobuf_LIBRARIES}
