@@ -74,7 +74,7 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-# TODO: this should be "generated"
+# TODO: move to conandata.yml and set in recipe cmakelists
 set(BRPC_REVISION "f43bdcec")
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
@@ -135,7 +135,7 @@ if(WITH_GLOG)
     include_directories(${GLOG_INCLUDE_PATH})
 endif()
 
-# TODO: see if this is required or not
+# This diff hunk is necessary since a debug build produces protocd
 find_library(PROTOC_LIB NAMES protoc protocd)
 if(NOT PROTOC_LIB)
     message(FATAL_ERROR "Fail to find protoc lib")
