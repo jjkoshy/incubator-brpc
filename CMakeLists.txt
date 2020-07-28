@@ -74,9 +74,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-# TODO: move to conandata.yml and set in recipe cmakelists
-set(BRPC_REVISION "f43bdcec")
-
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
     include(CheckFunctionExists)
     CHECK_FUNCTION_EXISTS(clock_gettime HAVE_CLOCK_GETTIME)
