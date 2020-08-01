@@ -23,6 +23,7 @@
 #include "brpc/controller.h"                        // Controller
 #include "brpc/thrift_message.h"                    // ThriftFramedMessage
 #include "brpc/describable.h"
+#include "brpc/stdcxx.h"
 
 namespace brpc {
 
