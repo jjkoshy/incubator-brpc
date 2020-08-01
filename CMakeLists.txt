@@ -125,7 +125,8 @@ endif()
 
 if(WITH_GLOG)
     find_path(GLOG_INCLUDE_PATH NAMES glog/logging.h)
-    find_library(GLOG_LIB NAMES glog)
+    # This diff hunk is necessary since a debug build produces glogd
+    find_library(GLOG_LIB NAMES glog glogd)
     if((NOT GLOG_INCLUDE_PATH) OR (NOT GLOG_LIB))
         message(FATAL_ERROR "Fail to find glog")
     endif()
