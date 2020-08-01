@@ -46,7 +46,7 @@ endif()
 
 if(WITH_THRIFT)
     set(THRIFT_CPP_FLAG "-DENABLE_THRIFT_FRAMED_PROTOCOL")
-    if(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    if(RECIPE_BUILD_TYPE MATCHES debug)
       set(THRIFTNB_LIB "thriftnbd")
       set(THRIFT_LIB "thriftd")
     else()
