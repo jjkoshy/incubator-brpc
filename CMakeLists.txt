@@ -14,6 +14,8 @@ if(POLICY CMP0042)
     cmake_policy(SET CMP0042 NEW)
 endif()
 
+set(BRPC_REVISION "f43bdcec")
+
 set(BRPC_VERSION 0.9.0)
 
 SET(CPACK_GENERATOR "DEB")
@@ -164,7 +166,6 @@ include_directories(
 # PROTOBUF_LIBRARIES. Normally, that should be enabled with
 # protobuf_MODULE_COMPATIBLE; it appears that the endif for the if (0) in
 # the protobuf recipe should be moved further up
-find_library(SNAPPY_LIB NAMES snappy)
 set(DYNAMIC_LIB
     ${GFLAGS_LIBRARY}
     ${Protobuf_LIBRARIES}
@@ -175,10 +176,15 @@ set(DYNAMIC_LIB
     ${THRIFTNB_LIB}
     ${OPENSSL_LIBRARIES}
     ${OPENSSL_CRYPTO_LIBRARY}
-    ${SNAPPY_LIB}
     dl
     z)
-set(BRPC_PRIVATE_LIBS "-lgflags -lprotobuf -lleveldb -lprotoc -lssl -lcrypto -lsnappy -ldl -lz")
+set(BRPC_PRIVATE_LIBS "-lgflags -lprotobuf -lleveldb -lprotoc -lssl -lcrypto -ldl -lz")
+
+if(WITH_SNAPPY)
+  find_library(SNAPPY_LIB NAMES snappy)
+  set(DYNAMIC_LIB ${DYNAMIC_LIB} ${SNAPPY_LIB})
+  set(BRPC_PRIVATE_LIBS "${BRPC_PRIVATE_LIBS} -lsnappy")
+endif()
 
 if(WITH_GLOG)
     set(DYNAMIC_LIB ${DYNAMIC_LIB} ${GLOG_LIB})
