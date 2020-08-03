@@ -164,8 +164,7 @@ include_directories(
 # This diff hunk is necessary because the protobuf package disables the
 # backwards-compatible aliasing of Protobuf_LIBRARIES with
 # PROTOBUF_LIBRARIES. Normally, that should be enabled with
-# protobuf_MODULE_COMPATIBLE; it appears that the endif for the if (0) in
-# the protobuf recipe should be moved further up
+# protobuf_MODULE_COMPATIBLE
 set(DYNAMIC_LIB
     ${GFLAGS_LIBRARY}
     ${Protobuf_LIBRARIES}
