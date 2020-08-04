@@ -23,7 +23,6 @@
 #include "brpc/controller.h"                        // Controller
 #include "brpc/thrift_message.h"                    // ThriftFramedMessage
 #include "brpc/describable.h"
-#include "brpc/stdcxx.h" // stdcxx.h copied from thrift 0.11 since brpc still uses 0.11 which provides a bunch of defines that have been removed in 0.13
 
 namespace brpc {
 
